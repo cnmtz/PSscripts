@@ -1,1 +1,2 @@
-﻿Invoke-Command -ComputerName aus2-gm-gads01v.drillinginfo.com -ScriptBlock { schtasks.exe /run /tn “gads am sync” } -Authentication Kerberos -Credential (Get-Credential)
+﻿#This command will run the google apps sync tool to ad-hoc sync AD with Google Apps for email creation
+Invoke-Command -ComputerName aus2-gm-gads01v.drillinginfo.com -ScriptBlock { schtasks.exe /run /tn “gads am sync” } -Authentication Kerberos -Credential (Get-Credential)
