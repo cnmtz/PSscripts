@@ -8,6 +8,7 @@ $Firstname = Read-Host -Prompt "Input the user's First Name here"
 $LastName = Read-Host -Prompt "Input the user's Last Name here"
 $title = Read-Host -Prompt "Input the user's Title here"
 $ipExtension = Read-Host -Prompt "Input the user's phone extension here"
+$OU = OU=Users,DC=na,DC=domain,DC=com
 $randomgen = -join ((65..90) + (97..122) | Get-Random -Count 12 | % {[char]$_})
 $clonedusername = Read-Host -Prompt "Input the username to close group memberships from"
 $username= $FirstName + "." + $LastName
