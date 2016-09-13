@@ -11,9 +11,9 @@ $clonedusername = Read-Host -Prompt "Input the username to close group membershi
 $username= $FirstName + "." + $LastName
 $Fullname = $Firstname + "` " + $LastName
 $samaccountname = $username.ToLower()
-$email = $samaccountname + "@drillinginfo.com"
+$email = $samaccountname + "@domain.com"
 $password = $randomgen + "1!"
-$upn = "$samaccountname@na.drillinginfo.com"  
+$upn = "$samaccountname@domain.local"  
 
 #Create New Users' Account
 New-ADUser -Name $Fullname -SamAccountName "$samaccountname" -GivenName "$FirstName" -Surname "$LastName" -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -DisplayName "$Fullname" -Path "OU=Users,OU=AUTOMATION,OU=-Austin,DC=na,DC=drillinginfo,DC=com" -UserPrincipalName "$upn" -Title "$title" -EmailAddress "$email" -Enabled $true -OtherAttributes @{ipPhone="$ipExtension"}
