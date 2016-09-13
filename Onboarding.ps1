@@ -2,6 +2,8 @@
 
 import-module ActiveDirectory
 
+
+
 $Firstname = Read-Host -Prompt "Input the user's First Name here"
 $LastName = Read-Host -Prompt "Input the user's Last Name here"
 $title = Read-Host -Prompt "Input the user's Title here"
@@ -11,12 +13,13 @@ $clonedusername = Read-Host -Prompt "Input the username to close group membershi
 $username= $FirstName + "." + $LastName
 $Fullname = $Firstname + "` " + $LastName
 $samaccountname = $username.ToLower()
-$email = $samaccountname + "@drillinginfo.com"
+$email = $samaccountname + "@DOMAIN.COM" #Change DOMAIN.COM to your actual domain if creating email addresses. Email address is compiled from Firstname + "." + LastName + "@DOMAIN.COM"
 $password = $randomgen + "1!"
-$upn = "$samaccountname@na.drillinginfo.com"  
+$upn = "$samaccountname@DOMAIN.LOCAL"  #Change DOMAIN.COM to your actual domain or respective domain for the UPN
+$OU = "OU=Users,DC=DOMAIN,DC=com" #Set this to the Distinguished Name of the OU you would like to create the user in.
 
 #Create New Users' Account
-New-ADUser -Name $Fullname -SamAccountName "$samaccountname" -GivenName "$FirstName" -Surname "$LastName" -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -DisplayName "$Fullname" -Path "OU=Users,OU=AUTOMATION,OU=-Austin,DC=na,DC=drillinginfo,DC=com" -UserPrincipalName "$upn" -Title "$title" -EmailAddress "$email" -Enabled $true -OtherAttributes @{ipPhone="$ipExtension"}
+New-ADUser -Name $Fullname -SamAccountName "$samaccountname" -GivenName "$FirstName" -Surname "$LastName" -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -DisplayName "$Fullname" -Path "$OU" -UserPrincipalName "$upn" -Title "$title" -EmailAddress "$email" -Enabled $true -OtherAttributes @{ipPhone="$ipExtension"}
 
 #Prints the password onscreen for immediate use if necessary to access the account
 Write-Host $password
