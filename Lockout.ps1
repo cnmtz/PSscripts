@@ -1,0 +1,2 @@
+﻿$username = Read-Host -Prompt "Input Username here:"
+(ls C:\temp -Filter '*LOG.txt').FullName | % { cat $_ | Select-String $username } | % { ([System.Text.RegularExpressions.Regex]::Match($_,'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)')).Value } | Sort-Object -Unique | % { ([System.Net.Dns]::GetHostEntry($_)).HostName }

@@ -1,0 +1,1 @@
+﻿Invoke-Command -ComputerName aus2-gm-gads01v.drillinginfo.com -ScriptBlock { schtasks.exe /run /tn “gads am sync” } -Authentication Kerberos -Credential (Get-Credential)
