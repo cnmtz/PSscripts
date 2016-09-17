@@ -30,3 +30,11 @@ Get-ADUser -Identity $clonedusername -Properties Memberof |
 Select-Object -ExpandProperty memberof |
 Add-ADGroupMember -Members $samaccountname
 
+
+#Outputs user's details
+Write-Host "Your user has been created"
+Write-Host "Full Name: $Fullname"
+Write-Host "Username: $samaccountname"
+Write-Host "Email Address: $email"
+Write-Host "The user's permissions have been copied from: $clonedusername"
+Write-Host "Phone Extension: $ipExtension"
