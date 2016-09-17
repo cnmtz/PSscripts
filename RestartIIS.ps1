@@ -3,7 +3,7 @@
 $title = "Restart IIS"
 $message = "Do you want to restart IIS on the server?"
 $remoteservername = Read-Host -Prompt "Please enter the name of the server to Reset IIS on"
-$server = $remoteservername + ".na.drillinginfo.com"
+$server = $remoteservername + "DOMAIN.LOCAL"
 
 $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes",
      "Resets IIS on the server"
