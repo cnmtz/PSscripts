@@ -17,6 +17,9 @@ $result = $host.ui.PromptForChoice($title, $message, $options, 0)
 
 switch ($result)
     {
-        0 {invoke-command -computername $remoteservername -scriptblock {iisreset}}
+        0 {
+            invoke-command -computername $remoteservername -scriptblock {iisreset}
+            Write-Host "The service IIS has been restarted on $remoteservername"
+          }
         1 {"You selected No. The server has remained untouched"}
     }
