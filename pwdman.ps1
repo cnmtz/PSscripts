@@ -23,8 +23,8 @@ switch ($result)
             }
           }
         1 {
+            $list = Get-ADUser -searchbase "$OU" -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} –Properties “sAMAccountName”, “msDS-UserPasswordExpiryTimeComputed” | Select-Object  -Property “sAMAccountName”,@{Name=“ExpiryDate”;Expression={[datetime]::FromFileTime($_.“msDS-UserPasswordExpiryTimeComputed”)}}
             foreach ($entry in $list) {
-                $list = Get-ADUser -searchbase "$OU" -filter {Enabled -eq $True -and PasswordNeverExpires -eq $False} –Properties “sAMAccountName”, “msDS-UserPasswordExpiryTimeComputed” | Select-Object  -Property “sAMAccountName”,@{Name=“ExpiryDate”;Expression={[datetime]::FromFileTime($_.“msDS-UserPasswordExpiryTimeComputed”)}}
                 $user = $entry.samaccountname 
                 $todouser = Get-ADUser $user -Properties pwdLastSet -Server $DC
                 
@@ -32,8 +32,11 @@ switch ($result)
                 Set-ADUser -Instance $todouser
 
                 $todouser.pwdLastSet = -1 
-                Set-ADUser -Instance $todouser  
-                Write-Host "Password reset has been postponed for $user"
+                Set-ADUser -Instance $todouser
+
+                $newexpirydate = Get-ADUser -Identity $user –Properties “msDS-UserPasswordExpiryTimeComputed” | Select-Object -Property @{Name=“ExpiryDate”;Expression={[datetime]::FromFileTime($_.“msDS-UserPasswordExpiryTimeComputed”)}}
+
+                Write-Host "Expiration postponed: $user ExpiryDate: $newexpirydate"
             }
           }
     }
