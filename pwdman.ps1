@@ -19,6 +19,7 @@ switch ($result)
      
                 $todouser.pwdLastSet = 0 
                 Set-ADUser -Instance $todouser 
+                Write-Host "Password reset has been forced for $user"
             }
           }
         1 {
@@ -32,6 +33,7 @@ switch ($result)
 
                 $todouser.pwdLastSet = -1 
                 Set-ADUser -Instance $todouser  
+                Write-Host "Password reset has been postponed for $user"
             }
           }
     }
